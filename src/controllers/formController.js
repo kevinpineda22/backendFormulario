@@ -1,13 +1,11 @@
 import { supabase } from "../utils/supabaseClient.js";
 
 export async function saveFormData(req, res) {
-  const formData = req.body; // Se espera que el cliente envíe un JSON con los datos
-
-  // Aquí podrías agregar validaciones adicionales
+  const formData = req.body;
 
   try {
     const { data, error } = await supabase
-      .from("sociodemografico") // Asegúrate de que la tabla existe en Supabase
+      .from("sociodemografico")
       .insert([formData]);
 
     if (error) {
