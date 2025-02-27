@@ -7,7 +7,7 @@ export async function saveFormData(req, res) {
 
   try {
     const { data, error } = await supabase
-      .from("sociodemographics") // Asegúrate de que la tabla existe en Supabase
+      .from("sociodemografico") // Asegúrate de que la tabla existe en Supabase
       .insert([formData]);
 
     if (error) {
