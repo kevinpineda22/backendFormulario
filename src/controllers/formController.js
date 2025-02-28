@@ -4,6 +4,7 @@ export async function saveFormData(req, res) {
   const formData = req.body;
 
   try {
+    console.log("Guardando datos:", formData);
     const { data, error } = await supabase
       .from("sociodemografico")
       .insert([formData]);
@@ -13,6 +14,7 @@ export async function saveFormData(req, res) {
       return res.status(500).json({ error: error.message });
     }
 
+    console.log("Datos guardados correctamente", data);
     return res.status(200).json({ message: "Datos guardados correctamente", data });
   } catch (err) {
     console.error("Error en saveFormData:", err);
@@ -22,6 +24,7 @@ export async function saveFormData(req, res) {
 
 export async function listFormData(req, res) {
   try {
+    console.log("Solicitando listado de registros");
     const { data, error } = await supabase
       .from("sociodemografico")
       .select("*");
@@ -30,6 +33,8 @@ export async function listFormData(req, res) {
       console.error("Error al obtener datos:", error);
       return res.status(500).json({ error: error.message });
     }
+    
+    console.log("Listado obtenido correctamente", data);
     return res.status(200).json(data);
   } catch (err) {
     console.error("Error en listFormData:", err);
@@ -56,7 +61,7 @@ export async function updateFormData(req, res) {
     }
 
     if (!data || data.length === 0) {
-      console.log("Registro no encontrado");
+      console.log("Registro no encontrado para ID:", id);
       return res.status(404).json({ error: "Registro no encontrado" });
     }
 
