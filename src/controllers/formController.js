@@ -48,7 +48,12 @@ export async function updateFormData(req, res) {
   const updatedData = req.body;
 
   console.log(`Received PUT request for ID: ${id} (parsed as ${recordId})`);
-  console.log(`Updated data: ${JSON.stringify(updatedData)}`);
+  console.log("Updated data: ", updatedData);
+
+  if (Object.keys(updatedData).length === 0) {
+    console.warn("No se proporcionaron campos para actualizar");
+    return res.status(400).json({ error: "No se proporcionaron datos para actualizar" });
+  }
 
   try {
     const { data, error } = await supabase
