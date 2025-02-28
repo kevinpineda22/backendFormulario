@@ -9,6 +9,7 @@ router.post("/save", saveFormData);
 // Ruta para obtener el historial
 router.get("/list", listFormData);
 
+// Ruta para Guardar y editar datos del historial
 router.put("/update:id", updateFormData);
 
 export default router;
