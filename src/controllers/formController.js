@@ -44,16 +44,17 @@ export async function listFormData(req, res) {
 
 export async function updateFormData(req, res) {
   const { id } = req.params;
+  const recordId = Number(id); // Convertir a número
   const updatedData = req.body;
 
-  console.log(`Received PUT request for ID: ${id}`);
+  console.log(`Received PUT request for ID: ${id} (parsed as ${recordId})`);
   console.log(`Updated data: ${JSON.stringify(updatedData)}`);
 
   try {
     const { data, error } = await supabase
       .from("sociodemografico")
       .update(updatedData)
-      .eq("id", id);
+      .eq("id", recordId);
 
     if (error) {
       console.error("Error al actualizar datos:", error);
@@ -61,7 +62,7 @@ export async function updateFormData(req, res) {
     }
 
     if (!data || data.length === 0) {
-      console.log("Registro no encontrado para ID:", id);
+      console.log("Registro no encontrado para ID:", recordId);
       return res.status(404).json({ error: "Registro no encontrado" });
     }
 
