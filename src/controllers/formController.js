@@ -41,6 +41,9 @@ export async function updateFormData(req, res) {
   const { id } = req.params;
   const updatedData = req.body;
 
+  console.log(`Received PUT request for ID: ${id}`);
+  console.log(`Updated data: ${JSON.stringify(updatedData)}`);
+
   try {
     const { data, error } = await supabase
       .from("sociodemografico")
@@ -53,9 +56,11 @@ export async function updateFormData(req, res) {
     }
 
     if (!data || data.length === 0) {
+      console.log("Registro no encontrado");
       return res.status(404).json({ error: "Registro no encontrado" });
     }
 
+    console.log("Datos actualizados correctamente", data);
     return res.status(200).json({ message: "Datos actualizados correctamente", data });
   } catch (err) {
     console.error("Error en updateFormData:", err);
