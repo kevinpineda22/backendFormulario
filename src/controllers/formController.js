@@ -1,13 +1,15 @@
 import { supabase } from "../utils/supabaseClient.js";
 
 export async function saveFormData(req, res) {
-  const formData = req.body;
-  console.log("Datos recibidos del frontend:", formData);
+  // Extraemos "id" y dejamos el resto de los datos en "dataToInsert"
+  const { id, ...dataToInsert } = req.body;
+  console.log("Datos recibidos del frontend:", req.body);
+  console.log("Datos a insertar sin id:", dataToInsert);
 
   try {
     const { data, error } = await supabase
       .from("sociodemografico")
-      .insert([formData]);
+      .insert([dataToInsert]);
 
     if (error) {
       console.error("Error al insertar datos:", error);
