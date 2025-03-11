@@ -4,7 +4,13 @@ export async function saveFormData(req, res) {
   // Extraemos "id" y dejamos el resto de los datos en "dataToInsert"
   const { id, ...dataToInsert } = req.body;
   console.log("Datos recibidos del frontend:", req.body);
-  console.log("Datos a insertar sin id:", dataToInsert);
+  console.log("Datos a insertar sin id (antes de delete):", dataToInsert);
+
+  // Asegurarnos de eliminar la propiedad "id" si existiera
+  if ('id' in dataToInsert) {
+    delete dataToInsert.id;
+  }
+  console.log("Datos a insertar sin id (después de delete):", dataToInsert);
 
   try {
     const { data, error } = await supabase
@@ -22,6 +28,7 @@ export async function saveFormData(req, res) {
     return res.status(500).json({ error: err.message });
   }
 }
+
 
 export async function listFormData(req, res) {
   try {
