@@ -15,13 +15,18 @@ export async function saveFormDataMegamayoristas(req, res) {
   }
 
   try {
+    // Logging de los campos que se van a insertar
+    console.log("Campos a insertar en Supabase:", Object.keys(dataToInsert));
+
     const { data, error } = await supabase
       .from("sociodemografico_megamayoristas")
       .insert([dataToInsert]);
 
     if (error) {
-      console.error("Error al insertar datos:", error);
-      return res.status(500).json({ error: error.message });
+      console.error("Error al insertar datos (objeto completo):", error);
+      return res
+        .status(500)
+        .json({ error: error.message || error.details || error });
     }
 
     return res
@@ -100,12 +105,10 @@ export async function updateFormDataMegamayoristas(req, res) {
       console.log(
         `Registro encontrado pero no devuelto en data para ID: ${numericId}`
       );
-      return res
-        .status(200)
-        .json({
-          message: "Datos actualizados correctamente, pero no devueltos",
-          id: numericId,
-        });
+      return res.status(200).json({
+        message: "Datos actualizados correctamente, pero no devueltos",
+        id: numericId,
+      });
     }
 
     console.log("Datos actualizados correctamente", data);
