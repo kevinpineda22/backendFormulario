@@ -15,18 +15,28 @@ export async function saveFormDataMegamayoristas(req, res) {
   }
 
   try {
-    // Logging de los campos que se van a insertar
-    console.log("Campos a insertar en Supabase:", Object.keys(dataToInsert));
+    // Logging de los campos y valores que se van a insertar
+    console.log(
+      "Payload a insertar en Supabase:",
+      JSON.stringify(dataToInsert, null, 2)
+    );
 
-    const { data, error } = await supabase
+    const { data, error, status, statusText } = await supabase
       .from("sociodemografico_megamayoristas")
       .insert([dataToInsert]);
 
     if (error) {
-      console.error("Error al insertar datos (objeto completo):", error);
-      return res
-        .status(500)
-        .json({ error: error.message || error.details || error });
+      console.error(
+        "Error al insertar datos (objeto completo):",
+        JSON.stringify(error, null, 2)
+      );
+      console.error("Status Supabase:", status, statusText);
+      return res.status(500).json({
+        error: error.message || error.details || error,
+        supabaseError: error,
+        status,
+        statusText,
+      });
     }
 
     return res
