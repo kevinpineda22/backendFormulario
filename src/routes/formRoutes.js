@@ -19,7 +19,7 @@ router.put("/update/:id", updateFormData);
 //************************************************************* endpoint Construahorro
 
 // Ruta para guardar datos
-router.post("/save", saveFormDataConstruahorro);
+router.post("/save/construahorro", saveFormDataConstruahorro);
 
 // Ruta para obtener el historial
 router.get("/list", listFormDataConstruahorro);
