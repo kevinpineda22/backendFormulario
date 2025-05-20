@@ -8,7 +8,7 @@ export async function saveFormData(req, res) {
 
   try {
     const { data, error } = await supabase
-      .from("sociodemografico")
+      .from("sociodemografico_merkahorro")
       .insert([dataToInsert]);
 
     if (error) {
@@ -26,7 +26,7 @@ export async function saveFormData(req, res) {
 export async function listFormData(req, res) {
   try {
     const { data, error } = await supabase
-      .from("sociodemografico")
+      .from("sociodemografico_merkahorro")
       .select("*");
 
     if (error) {
@@ -57,7 +57,7 @@ export async function updateFormData(req, res) {
 
     console.log(`Actualizando registro con ID: ${numericId}`);
     const { data, error } = await supabase
-      .from("sociodemografico")
+      .from("sociodemografico_merkahorro")
       .update(updatedData)
       .eq("id", numericId)
       .select(); // Devolver los datos actualizados
@@ -70,7 +70,7 @@ export async function updateFormData(req, res) {
     if (!data || data.length === 0) {
       // Verificar si el registro existe antes de asumir que no se encontró
       const { data: existingData, error: fetchError } = await supabase
-        .from("sociodemografico")
+        .from("sociodemografico_merkahorro")
         .select("*")
         .eq("id", numericId);
 
