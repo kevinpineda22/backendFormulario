@@ -1,7 +1,19 @@
 import express from "express";
-import { saveFormData, listFormData, updateFormData  } from "../controllers/formControllerMerkahorro.js";
-import { saveFormDataConstruahorro, listFormDataConstruahorro, updateFormDataConstruahorro  } from "../controllers/formControllerConstruahorro.js";
-import { saveFormDataMegamayoristas, listFormDataMegamayoristas, updateFormDataMegamayoristas  } from "../controllers/formControllerMegamayoristas.js";
+import {
+  saveFormData,
+  listFormData,
+  updateFormData,
+} from "../controllers/formControllerMerkahorro.js";
+import {
+  saveFormDataConstruahorro,
+  listFormDataConstruahorro,
+  updateFormDataConstruahorro,
+} from "../controllers/formControllerConstruahorro.js";
+import {
+  saveFormDataMegamayoristas,
+  listFormDataMegamayoristas,
+  updateFormDataMegamayoristas,
+} from "../controllers/formControllerMegamayoristas.js";
 
 const router = express.Router();
 
@@ -11,10 +23,10 @@ const router = express.Router();
 router.post("/save", saveFormData);
 
 // Ruta para obtener el historial
-router.get("/list", listFormData);
+router.get("/list/merkahorro", listFormData);
 
 // Ruta para Guardar y editar datos del historial
-router.put("/update/:id", updateFormData);
+router.put("/update/merkahorro/:id", updateFormData);
 
 //************************************************************* endpoint Construahorro
 
@@ -22,10 +34,10 @@ router.put("/update/:id", updateFormData);
 router.post("/save/construahorro", saveFormDataConstruahorro);
 
 // Ruta para obtener el historial
-router.get("/list", listFormDataConstruahorro);
+router.get("/list/construahorro", listFormDataConstruahorro);
 
 // Ruta para Guardar y editar datos del historial
-router.put("/update/:id", updateFormDataConstruahorro);
+router.put("/update/construahorro/:id", updateFormDataConstruahorro);
 
 //*************************************************************endpoint Megamayoristas
 
@@ -33,10 +45,9 @@ router.put("/update/:id", updateFormDataConstruahorro);
 router.post("/save/megamayoristas", saveFormDataMegamayoristas);
 
 // Ruta para obtener el historial
-router.get("/list", listFormDataMegamayoristas);
+router.get("/list/megamayoristas", listFormDataMegamayoristas);
 
 // Ruta para Guardar y editar datos del historial
-router.put("/update/:id", updateFormDataMegamayoristas);
-
+router.put("/update/megamayoristas/:id", updateFormDataMegamayoristas);
 
 export default router;
