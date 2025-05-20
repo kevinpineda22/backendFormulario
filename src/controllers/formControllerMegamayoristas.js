@@ -6,6 +6,14 @@ export async function saveFormDataMegamayoristas(req, res) {
   console.log("Datos recibidos del frontend:", req.body);
   console.log("Datos a insertar sin id:", dataToInsert);
 
+  // Validación básica: asegúrate de que dataToInsert no esté vacío
+  if (Object.keys(dataToInsert).length === 0) {
+    console.error("No se recibieron datos para insertar");
+    return res
+      .status(400)
+      .json({ error: "No se recibieron datos para insertar" });
+  }
+
   try {
     const { data, error } = await supabase
       .from("sociodemografico_megamayoristas")
@@ -16,9 +24,11 @@ export async function saveFormDataMegamayoristas(req, res) {
       return res.status(500).json({ error: error.message });
     }
 
-    return res.status(200).json({ message: "Datos guardados correctamente", data });
+    return res
+      .status(200)
+      .json({ message: "Datos guardados correctamente", data });
   } catch (err) {
-    console.error("Error en saveFormData:", err);
+    console.error("Error en saveFormDataMegamayoristas:", err);
     return res.status(500).json({ error: err.message });
   }
 }
@@ -81,16 +91,27 @@ export async function updateFormDataMegamayoristas(req, res) {
 
       if (!existingData || existingData.length === 0) {
         console.log(`Registro no encontrado para ID: ${numericId}`);
-        return res.status(404).json({ error: `Registro no encontrado para ID: ${numericId}` });
+        return res
+          .status(404)
+          .json({ error: `Registro no encontrado para ID: ${numericId}` });
       }
 
       // Si el registro existe pero data está vacío, la actualización fue exitosa pero no devolvió datos
-      console.log(`Registro encontrado pero no devuelto en data para ID: ${numericId}`);
-      return res.status(200).json({ message: "Datos actualizados correctamente, pero no devueltos", id: numericId });
+      console.log(
+        `Registro encontrado pero no devuelto en data para ID: ${numericId}`
+      );
+      return res
+        .status(200)
+        .json({
+          message: "Datos actualizados correctamente, pero no devueltos",
+          id: numericId,
+        });
     }
 
     console.log("Datos actualizados correctamente", data);
-    return res.status(200).json({ message: "Datos actualizados correctamente", data });
+    return res
+      .status(200)
+      .json({ message: "Datos actualizados correctamente", data });
   } catch (err) {
     console.error("Error en updateFormData:", err);
     return res.status(500).json({ error: err.message });
