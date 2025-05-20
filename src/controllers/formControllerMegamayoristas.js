@@ -22,7 +22,7 @@ export async function saveFormDataMegamayoristas(req, res) {
     );
 
     const { data, error, status, statusText } = await supabase
-      .from("sociodemografico_megamayoristas")
+      .from("sociodemografico_megamayorista")
       .insert([dataToInsert]);
 
     if (error) {
@@ -51,7 +51,7 @@ export async function saveFormDataMegamayoristas(req, res) {
 export async function listFormDataMegamayoristas(req, res) {
   try {
     const { data, error } = await supabase
-      .from("sociodemografico_megamayoristas")
+      .from("sociodemografico_megamayorista")
       .select("*");
 
     if (error) {
@@ -82,7 +82,7 @@ export async function updateFormDataMegamayoristas(req, res) {
 
     console.log(`Actualizando registro con ID: ${numericId}`);
     const { data, error } = await supabase
-      .from("sociodemografico_megamayoristas")
+      .from("sociodemografico_megamayorista")
       .update(updatedData)
       .eq("id", numericId)
       .select(); // Devolver los datos actualizados
@@ -95,7 +95,7 @@ export async function updateFormDataMegamayoristas(req, res) {
     if (!data || data.length === 0) {
       // Verificar si el registro existe antes de asumir que no se encontró
       const { data: existingData, error: fetchError } = await supabase
-        .from("sociodemografico_megamayoristas")
+        .from("sociodemografico_megamayorista")
         .select("*")
         .eq("id", numericId);
 

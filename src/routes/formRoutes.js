@@ -20,7 +20,7 @@ const router = express.Router();
 //*************************************************************endpoint Merkahorro
 
 // Ruta para guardar datos
-router.post("/save", saveFormData);
+router.post("/save/merkahorro", saveFormData);
 
 // Ruta para obtener el historial
 router.get("/list/merkahorro", listFormData);
