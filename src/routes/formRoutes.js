@@ -30,7 +30,7 @@ router.put("/update/:id", updateFormDataConstruahorro);
 //*************************************************************endpoint Megamayoristas
 
 // Ruta para guardar datos
-router.post("/save", saveFormDataMegamayoristas);
+router.post("/save/megamayoristas", saveFormDataMegamayoristas);
 
 // Ruta para obtener el historial
 router.get("/list", listFormDataMegamayoristas);
